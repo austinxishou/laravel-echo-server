@@ -23,11 +23,12 @@ export class PrivateChannel {
         if (data.auth && data.auth.headers && data.auth.headers.referer) {
             socket.request.headers.referer = data.auth.headers.referer
         }
+        let authEndpoint = this.options.authEndpoint
         if (data.auth && data.auth.headers && data.auth.headers.authEndpoint) {
-            this.options.authEndpoint = data.auth.headers.authEndpoint
+            authEndpoint = data.auth.headers.authEndpoint
         }
         let options = {
-            url: this.authHost(socket) + this.options.authEndpoint,
+            url: this.authHost(socket) + authEndpoint,
             form: { channel_name: data.channel },
             headers: (data.auth && data.auth.headers) ? data.auth.headers : {},
             rejectUnauthorized: false
