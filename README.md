@@ -2,6 +2,19 @@
 
 NodeJs server for Laravel Echo broadcasting with Socket.io.
 
+## Custom modify note
+Send authentication request to application server. before authHost function add custom headers values;
+
+```js
+
+        if (data.auth && data.auth.headers && data.auth.headers.referer) {
+            socket.request.headers.referer = data.auth.headers.referer
+        }
+        if (data.auth && data.auth.headers && data.auth.headers.authEndpoint) {
+            this.options.authEndpoint = data.auth.headers.authEndpoint
+        }
+```
+
 ## System Requirements
 
 The following are required to function properly.

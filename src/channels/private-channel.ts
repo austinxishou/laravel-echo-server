@@ -20,6 +20,12 @@ export class PrivateChannel {
      * Send authentication request to application server.
      */
     authenticate(socket: any, data: any): Promise<any> {
+        if (data.auth && data.auth.headers && data.auth.headers.referer) {
+            socket.request.headers.referer = data.auth.headers.referer
+        }
+        if (data.auth && data.auth.headers && data.auth.headers.authEndpoint) {
+            this.options.authEndpoint = data.auth.headers.authEndpoint
+        }
         let options = {
             url: this.authHost(socket) + this.options.authEndpoint,
             form: { channel_name: data.channel },
