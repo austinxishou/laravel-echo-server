@@ -208,6 +208,7 @@ export class EchoServer {
             this.onUnsubscribe(socket);
             this.onDisconnecting(socket);
             this.onClientEvent(socket);
+            this.onClientSyncEvent(socket);
         });
     }
 
@@ -248,6 +249,15 @@ export class EchoServer {
     onClientEvent(socket: any): void {
         socket.on('client event', data => {
             this.channel.clientEvent(socket, data);
+        });
+    }
+
+    /**
+     * On client events.
+     */
+    onClientSyncEvent(socket: any): void {
+        socket.on('client sync', data => {
+            this.channel.clientSyncEvent(socket, data);
         });
     }
 }

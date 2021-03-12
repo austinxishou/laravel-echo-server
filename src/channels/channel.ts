@@ -71,6 +71,21 @@ export class Channel {
     }
 
     /**
+     * Trigger a client sync message, remove the private channel limit!
+     */
+    clientSyncEvent(socket, data): void {
+        try {
+            data = JSON.parse(data);
+        } catch (e) {
+            data = data;
+        }
+
+        if (data.event && data.channel) {
+            socket.to(data.channel).emit(data.event, data.data)
+        }
+    }
+
+    /**
      * Leave a channel.
      */
     leave(socket: any, channel: string, reason: string): void {
